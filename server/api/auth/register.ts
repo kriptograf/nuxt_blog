@@ -1,5 +1,8 @@
-import { CompatibilityEvent } from 'h3';
+import { eventHandler } from 'h3';
 
-export default async (event: CompatibilityEvent) => {
+/**
+ * Обрабатываем событие регистрации пользователя
+ */
+export default eventHandler(async(event) => {
     return 'Hello from api';
-}
+});
