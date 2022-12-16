@@ -5,6 +5,7 @@ import Navbar from '~~/components/layout/navbar.vue';
 <template>
     <div class="h-screen">
         <Navbar />
+        <slot />
     </div>
 
 </template>

@@ -42,3 +42,5 @@ npm run preview
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
 
 * intalled tailwind css
+
+-- 9:17 video
