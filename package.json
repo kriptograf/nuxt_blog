@@ -9,10 +9,20 @@
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^6.1.3",
+    "@types/uuid": "^9.0.0",
     "nuxt": "3.0.0"
   },
   "dependencies": {
+    "@prisma/client": "^4.7.1",
+    "@types/bcrypt": "^5.0.0",
+    "@vueuse/core": "^9.7.0",
     "autoprefixer": "^10.4.13",
-    "postcss": "^8.4.20"
+    "bcrypt": "^5.1.0",
+    "postcss": "^8.4.20",
+    "prisma": "^4.7.1",
+    "uuid": "^9.0.0"
+  },
+  "prisma": {
+    "schema": "server/database/schema.prisma"
   }
 }

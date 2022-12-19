@@ -13,7 +13,7 @@ const errorMessage = ref(null);
  * Определяем функцию регистрации
  */
 const postRegisterForm = async function () {
-    await registerWithEmail(name.value, email.value, password.value);
+    await registerWithEmail(name.value!, email.value!, password.value!);
 } 
 </script>
 

@@ -1,4 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+// -- Помощник defineNuxtConfig доступен глобально без импорта.
 export default defineNuxtConfig({
     modules: [
         '@nuxtjs/tailwindcss'
