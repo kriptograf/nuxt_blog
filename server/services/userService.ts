@@ -2,6 +2,7 @@
  * Сервис работы с пользователями
  */
 import { getUserByEmail } from "~~/server/database/repositories/userRepository";
+import { IUser } from "~~/types/IUser";
 
 type ExistCheck = {
     value: boolean,
@@ -21,4 +22,20 @@ export async function doesUserExists(email: string): Promise<ExistCheck> {
     }
 
     return { value: false }
+}
+
+/**
+ * Очистим возвращаемый объект пользователя от полей, которые не нужно показывать на фронтенде
+ * @param user 
+ * @returns 
+ */
+export function sanitizeUserForFrontend(user: IUser): IUser {
+    if(!user) {
+        return user;
+    }
+
+    delete user.password;
+    delete user.loginType;
+
+    return user;
 }

@@ -48,21 +48,34 @@ export async function userLogout() {
  * @param email 
  * @param password 
  */
-export async function registerWithEmail(name: string, email: string, password: string) {
+export async function registerWithEmail(name: string, email: string, password: string): Promise<FormValidation> {
     try {
         // -- Выполняем пост запрос к серверу api
-        const res = await $fetch<ISession>('/api/auth/register', {
+        const { data, error } = await $fetch<ISession>('/api/auth/register', {
             method: 'POST',
             body: { name, email, password }
         });
+
+        if(error.value) {
+            type ErrorData = {
+                data: ErrorData
+            }
+
+            const errorData = error.value as unknown as ErrorData;
+            const errors = errorData.data.data as unknown as string;
+            const res = JSON.parse(errors);
+            const errorMap = new Map<string, { check: InputValidation; }>(Object.entries(res));
+
+            return { hasErrors: true, errors: errorMap };
+        }
         
-        if(res) {
+        if(data) {
             // -- Создаем глобальную реактивную ссылку, которая будет гидратирована, но не будет использоваться совместно с запросами ssr.
-            useState('user').value = res;
+            useState('user').value = data;
             // -- Программно перейдем к новому URL-адресу, запушив запись в стеке истории.
             await useRouter().push('/dashboard');
         }
     } catch (error: any) {
-        console.log(`Произошла ошибка ${error.toString()}`);
+        console.log(`Произошла ошибка ${error.toString()}`, error);
     }
 }

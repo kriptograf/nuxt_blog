@@ -5,6 +5,7 @@ import { H3Event } from 'h3';
 import { IUser } from "~~/types/IUser";
 import { v4 as uuidv4 } from 'uuid';
 import { createSession, getSessionByAuthToken } from '~~/server/database/repositories/sessionRepository';
+import { sanitizeUserForFrontend } from '~~/server/services/userService';
 
 /**
  * Создадим сессию и вернем пользователя
@@ -33,5 +34,5 @@ export async function makeSession(user: IUser, event: H3Event): Promise<IUser> {
 export async function getUserBySessionToken(authToken: string): Promise<IUser> {
    const session = await getSessionByAuthToken(authToken);
 
-   return session.user as IUser;
+   return sanitizeUserForFrontend(session.user as IUser);
 }

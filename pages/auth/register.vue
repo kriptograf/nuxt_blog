@@ -6,14 +6,17 @@ import { registerWithEmail } from '~/composables/useAuth';
 const email = ref(null);
 const name = ref(null);
 const password = ref(null);
-const hasError = ref(null);
+const errors = ref(new Map());
 const errorMessage = ref(null);
+let response = ref<FormValidation>({ hasErrors: false });
 
 /**
  * Определяем функцию регистрации
  */
-const postRegisterForm = async function () {
-    await registerWithEmail(name.value!, email.value!, password.value!);
+async function postRegisterForm() {
+    response.value = await registerWithEmail(name.value!, email.value!, password.value!);
+    console.log('postRegisterForm', response);
+    errors.value = response.value?.errors;
 } 
 </script>
 
@@ -31,6 +34,16 @@ const postRegisterForm = async function () {
                     </div>
                     <div class="xl:ml-20 xl:w-5/12 lg:w-5/12 md:w-8/12 mb-12 md:mb-0">
                         <form>
+
+                            <div>
+                                <ul>
+                                    <li v-for="[key, value] in errors">
+                                        {{ value.check.errorMessage }}
+                                    </li>
+                                </ul>
+                            </div>
+
+
                             <div class="flex flex-row items-center justify-center lg:justify-start">
                                 <p class="text-lg mb-0 mr-4">Sign in with</p>
                                 <button
